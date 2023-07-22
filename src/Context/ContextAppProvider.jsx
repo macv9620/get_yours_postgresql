@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useGetProductsApi } from "../services/useGetProductsApi";
+import { getCategoriesService } from "../services/getCategoriesService";
+import { getBrandsService } from "../services/getBrandsService";
 
 
 const AppContext = createContext()
@@ -29,8 +31,23 @@ const ContextAppProvider = ({children})=> {
         type: ''
     })
 
+    // Existing categories
+    const[categoriesList, setCategoriesList] = useState(null)
+        useEffect(()=> {
+            getCategoriesService().then(res => setCategoriesList(res.data)).catch(err => console.log(err))
+        },[])
+
+    // Existing brands
+    const[brandsList, setBrandsList] = useState(null)
+    useEffect(()=> {
+        getBrandsService().then(res => setBrandsList(res.data)).catch(err => console.log(err))
+    },[])
+
 // Api Info
     const { products, setUpdateProducts } = useGetProductsApi(setRenderLoadingSpinner, setRenderErrorPage)
+
+// Get Categories
+ 
 
 //Shopping cart - items list / addToCart / removeFromCart / deleteFromCart
     const [cartItems, setCartItems] = useState([])
@@ -151,7 +168,9 @@ const ContextAppProvider = ({children})=> {
         modalMessageToShow, 
         setModalMessageToShow,
         showBurger, 
-        setShowBurger
+        setShowBurger,
+        categoriesList,
+        brandsList
     }
 
 return(

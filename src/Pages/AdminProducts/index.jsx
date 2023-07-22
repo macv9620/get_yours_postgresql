@@ -14,7 +14,7 @@ const ProductForm = () => {
   const [postData, setPostData] = useState(null);
   const [fieldSetValue, setFieldSetValue] = useState("");
   const navigate = useNavigate();
-  const { setUpdateProducts } = useAppContext();
+  const { setUpdateProducts, categoriesList, brandsList } = useAppContext();
 
   const data = {
     product_name: "",
@@ -225,22 +225,15 @@ const ProductForm = () => {
             value={input.price}
             onChange={handleOnchange}
           />
-          <input
+{/*          <input
             type="text"
             name="category"
             id="category"
             placeholder="Category"
             value={input.category}
             onChange={handleOnchange}
-          />
-          <input
-            type="text"
-            name="brand"
-            id="brand"
-            placeholder="Brand"
-            value={input.brand}
-            onChange={handleOnchange}
-          />
+          />*/}
+
           <input
             type="text"
             name="sku"
@@ -249,6 +242,44 @@ const ProductForm = () => {
             value={input.sku}
             onChange={handleOnchange}
           />
+
+          <div className="flex w-60 items-center">
+            <label className="label w-20 mx-2" htmlFor="category">
+              Category
+            </label>
+            <select 
+            name="category" 
+            id="category"
+            value={input.category}
+            onChange={handleOnchange}
+            > 
+            <option value=""></option>
+            {categoriesList?.map((category, index)=> {
+              return (
+                <option className="text-center" key={index} value={Number(category.id)}>{category.name}</option>
+              )
+            })}
+            </select>
+          </div>
+
+          <div className="flex w-60 items-center">
+            <label className="label w-20 mx-2" htmlFor="brand">
+              Brand
+            </label>
+            <select 
+            name="brand" 
+            id="brand"
+            value={input.brand}
+            onChange={handleOnchange}
+            > 
+            <option value=""></option>
+            {brandsList?.map((brand, index)=> {
+              return (
+                <option className="text-center" key={index} value={Number(brand.id)}>{brand.name}</option>
+              )
+            })}
+            </select>
+          </div>
 
           <p className="required-message">{requestResult}</p>
           <button type="submit">Create Product</button>
