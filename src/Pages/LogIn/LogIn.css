@@ -1,0 +1,77 @@
+.log-in{
+	width: 90%;
+	min-width: 320px;
+	max-width: 500px;
+	padding: 30px;
+	background: #FFFFFF;
+	-webkit-box-shadow:  0px 0px 15px rgba(100, 100, 100, 0.6);
+
+}
+
+.log-in h2{
+	background: black;
+	text-transform: uppercase;
+	color: white;
+	font-size: 12px;
+	font-weight: 300;
+	padding: 20px;
+	margin: -30px -30px 20px -30px;
+}
+.log-in input[type="email"],
+.log-in input[type="password"],
+.log-in textarea,
+.log-in select 
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	display: block;
+	width: 100%;
+	padding: 7px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	background: transparent;
+	margin-bottom: 6px;
+	height: 45px;
+}
+.log-in textarea{
+	resize:none;
+	overflow: hidden;
+}
+.log-in button[type="submit"]{
+	background-color: black;
+	display: inline-block;
+	cursor: pointer;
+	color: #FFFFFF;
+	font-size: 12px;
+	padding: 8px 18px;
+	text-decoration: none;
+	text-transform: uppercase;
+	margin-top: 10px;
+	transition: 1s;
+}
+
+.log-in button[type="submit"]:hover{
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.6);
+	transition: 0.5s;
+}
+
+.required-message{
+	color: red;
+	font-size: 12px;
+
+	font-weight: 600;
+}
+
+.create-account-message{
+	color: black;
+	font-size: 12px;
+	padding: 7px 0px;
+	font-weight: 600;
+}
+
+
+

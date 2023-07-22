@@ -1,0 +1,80 @@
+.modal-message-background{
+    background: rgba(68, 68, 67, 0.4);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    top: 0;
+    animation-name: modal-message-opacity;
+    animation-duration: 0.2s;
+}
+
+@keyframes modal-message-opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+.modal-message-container{
+    width: 250px;
+    height: 150px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    animation-name: show-modal-message;
+    animation-duration: 0.2s;
+}
+
+@keyframes show-modal-message {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal-message-container__buttons{
+    display: flex;
+    gap: 10px;
+    transition: 1s;
+}
+
+.modal-message-container__buttons:hover{
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.6);
+	transition: 0.5s;
+    border-radius: 5px;
+}
+
+.modal-message-container__buttons--green{
+    background-color: green;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+
+.modal-message-container__buttons--red{
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.modal-message-container__text{
+    text-align: center;
+}

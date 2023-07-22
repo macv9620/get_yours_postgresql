@@ -1,0 +1,68 @@
+.log-out-background{
+    background: rgba(68, 68, 67, 0.4);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    top: 0;
+
+    animation-name: log-out-opacity;
+    animation-duration: 0.2s;
+}
+
+@keyframes log-out-opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+.log-out-container{
+    width: 250px;
+    height: 150px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+    animation-name: show-log-out;
+    animation-duration: 0.2s;
+}
+
+@keyframes show-log-out {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.log-out-container__buttons{
+    display: flex;
+    gap: 10px;
+}
+
+.log-out-container__buttons--green{
+    background-color: green;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.log-out-container__buttons--red{
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
