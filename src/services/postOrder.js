@@ -5,7 +5,7 @@ const BASE_URL_ORDER_PRODUCT = "http://localhost:9000/orders/products";
 const postOrder = (data, token) => {
 
   let config = {
-    method: "delete",
+    method: "post",
     maxBodyLength: Infinity,
     url: BASE_URL_ORDER,
     headers: {
@@ -21,14 +21,16 @@ const postOrder = (data, token) => {
 const postOrderProducts = (data, token) => {
 
     let config = {
-      method: "delete",
+      method: "post",
       maxBodyLength: Infinity,
       url: BASE_URL_ORDER_PRODUCT,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      data: data,
+      data: {
+        products: data
+      },
     };
   
     return axios.request(config);

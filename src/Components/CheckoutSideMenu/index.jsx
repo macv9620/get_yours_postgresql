@@ -8,62 +8,44 @@ import { useAuthContext } from "../../Context/ContextAuthProvider";
 import NoMatches from "../NoMatches/NoMatches";
 import { usePostOrder } from "../../services/usePostOrder";
 import { useState } from "react";
+import { postOrder, postOrderProducts } from "../../services/postOrder";
 
 const CheckoutSideMenu = () => {
-  const[dataToPost, setDataToPost]=useState(null)
+
   const { closeSideCheckoutMenu, showCheckoutSide, cartItems, setCartItems, openSideCheckoutMenu } =
     useAppContext();
 
   const {token, user} = useAuthContext()
 
-  const{postOrderResponse} = usePostOrder(dataToPost)
   
   const orderToAdd = ()=> {
-    const currentDate = new Date()
-
-    //Prefijo 0 para números menores a 10
-    const getHours = () => {
-      if(Number(currentDate.getHours()) < 10){
-        return `0${currentDate.getHours()}`
-      } else {
-        return `${currentDate.getHours()}`
-      }
-    }
-    const getMinutes = () => {
-      if(Number(currentDate.getMinutes()) < 10){
-        return `0${currentDate.getMinutes()}`
-      } else {
-        return `${currentDate.getMinutes()}`
-      }
-    }
-    const getDate = ()=>{
-      if(Number(currentDate.getDate()) < 10){
-        return `0${currentDate.getDate()}`
-      } else {
-        return `${currentDate.getDate()}`
-      }
-    }
-    const getMonth = ()=>{
-      if(Number(currentDate.getMonth()+1) < 10){
-        return `0${currentDate.getMonth()+1}`
-      } else {
-        return `${currentDate.getMonth()+1}`
-      }
+    const currentDate = new Date(Date.now())
+    const formatedDate = currentDate.toISOString()
+    
+    const dataToPost = {
+      userId: user.id,
+      date: formatedDate
     }
 
-    const orderTime = `${getHours()}:${getMinutes()}`
-    const orderSummaryInfo = {
-      email: user.email,
-      orderId: '',
-      date: {
-        orderDate: `${getDate()}-${getMonth()}-${currentDate.getFullYear()}`,
-        orderTime: orderTime,
-      },
-      products: cartItems,
-      productsQ: cartItems.length,
-      totalPrice: totalCartPrice(cartItems),
-    }
-    setDataToPost(orderSummaryInfo)
+
+
+    postOrder(dataToPost, token)
+    .then(res => {
+      console.log(res)
+      if(res.status === 201){
+        const productsToPost = cartItems.map((product)=> {
+          return {
+            orderId: res.data.data.id,
+            productId: product.id,
+            productQ: product.productQuantity
+          }
+        })
+        console.log(productsToPost)
+        postOrderProducts(productsToPost, token)
+      }
+    })
+    .catch(err => console.log(err))
+
     //setOrders([...orders, orderSummaryInfo])
     setCartItems([])
     openSideCheckoutMenu()
@@ -74,8 +56,6 @@ const CheckoutSideMenu = () => {
       return true
     }
   }
-
-
 
     return (
       <aside className={showCheckoutSide
