@@ -9,16 +9,20 @@ import NoMatches from "../NoMatches/NoMatches";
 import { usePostOrder } from "../../services/usePostOrder";
 import { useState } from "react";
 import { postOrder, postOrderProducts } from "../../services/postOrder";
+import { useGetUserOrders } from "../../services/useGetUserOrders";
 
 const CheckoutSideMenu = () => {
 
-  const { closeSideCheckoutMenu, showCheckoutSide, cartItems, setCartItems, openSideCheckoutMenu } =
+  const { setRenderLoadingSpinner, setShowModalMessage, setModalMessageToShow, closeSideCheckoutMenu, showCheckoutSide, cartItems, setCartItems, openSideCheckoutMenu } =
     useAppContext();
+
+    const{setUpdateUserOrders}=useGetUserOrders()
 
   const {token, user} = useAuthContext()
 
   
   const orderToAdd = ()=> {
+    setRenderLoadingSpinner(true)
     const currentDate = new Date(Date.now())
     const formatedDate = currentDate.toISOString()
     
@@ -34,6 +38,7 @@ const CheckoutSideMenu = () => {
       console.log(res)
       if(res.status === 201){
         const productsToPost = cartItems.map((product)=> {
+          console.log('Orden creada')
           return {
             orderId: res.data.data.id,
             productId: product.id,
@@ -42,9 +47,37 @@ const CheckoutSideMenu = () => {
         })
         console.log(productsToPost)
         postOrderProducts(productsToPost, token)
+        .then(res =>{
+          setRenderLoadingSpinner(false)
+          console.log(res)
+          console.log('Productos asociados correctamente')
+          setShowModalMessage(true) 
+          setModalMessageToShow({
+            message: 'Order created successfully',
+            type: 'success'
+          })
+          setUpdateUserOrders(true)
+        })
+        .catch(err=>{
+          setRenderLoadingSpinner(false)
+          console.log(err)
+          setShowModalMessage(true) 
+          setModalMessageToShow({
+            message: 'Network problems, please try again in a moment',
+            type: 'error'
+          })
+        })
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      setRenderLoadingSpinner(false)
+      setShowModalMessage(true) 
+      setModalMessageToShow({
+        message: 'Network problems, please try again in a moment',
+        type: 'error'
+      })
+    })
 
     //setOrders([...orders, orderSummaryInfo])
     setCartItems([])
