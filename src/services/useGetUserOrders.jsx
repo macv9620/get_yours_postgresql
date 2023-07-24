@@ -3,18 +3,18 @@ import axios from "axios";
 import { useAuthContext } from "../Context/ContextAuthProvider";
 import { useAppContext } from "../Context/ContextAppProvider";
 
-const BASE_URL = 'https://get-yours.onrender.com/orders'
+const BASE_URL = 'http://localhost:9000/orders/search'
 
 const useGetUserOrders = () => {
 const[updateUserOrders, setUpdateUserOrders]=useState(false)
-const {user} = useAuthContext()
+const {user, token} = useAuthContext()
 const{setOrders, setRenderLoadingSpinner} = useAppContext()
   useEffect(() => {
       if(updateUserOrders || user){
         setRenderLoadingSpinner(true);
  
         let data = JSON.stringify({
-          "email": user.email
+          "id": user.id
         })
   
         let config = {
@@ -22,21 +22,25 @@ const{setOrders, setRenderLoadingSpinner} = useAppContext()
           maxBodyLength: Infinity,
           url: BASE_URL,
           headers: { 
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
           data : data
         };
   
         axios.request(config)
           .then((res) => {
-            if(res.data.result === 'NO-ORDERS'){
+            console.log(res)
+            if(res.data.data.result === 'NO-ORDERS'){
               setRenderLoadingSpinner(false);
               setOrders([])
               setUpdateUserOrders(null)
-            } else if(res.data.result === 'ORDERS'){
+              console.log('Usuario sin ordenes')
+            } else if(res.data.data.result === 'ORDERS'){
               setRenderLoadingSpinner(false);
-              setOrders(res.data.data)
+              setOrders(res.data.data.userInfo)
               setUpdateUserOrders(null)
+              console.log('Ordenes de usuario', res.data.data.userInfo)
             }
           })
           .catch((err) => {

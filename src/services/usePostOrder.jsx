@@ -9,7 +9,7 @@ const BASE_URL = 'https://get-yours.onrender.com/order'
 const usePostOrder = (dataToPost) => {
     const[postOrderResponse, setPostOrderResponse] = useState(null)
     const{setRenderLoadingSpinner, setShowModalMessage, setModalMessageToShow} = useAppContext()
-    const{token}=useAuthContext()
+    const{token, user}=useAuthContext()
     const{setUpdateUserOrders}=useGetUserOrders()
 
 useEffect(()=>{

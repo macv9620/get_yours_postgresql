@@ -15,12 +15,17 @@ function MyOrder() {
 
 
   const indexToShow = orders.findIndex(
-    (order) => Number(order.orderId) === Number(id)
+    (order) => Number(order.id) === Number(id)
   );
 
   const orderToShow = orders[indexToShow];
 
+  console.log(orderToShow)
 
+  const totalPrice = orderToShow.order_product.reduce((acc, product)=> {
+    acc+=product.product_q*product.product.price
+    return acc
+  }, 0)
 
   return (
     <Layout>
@@ -32,11 +37,11 @@ function MyOrder() {
         <div className="w-80">
         {orderToShow && (
           <OrderList
-            date={orders[indexToShow].date.orderDate}
-            time={orders[indexToShow].date.orderTime}
-            totalProducts={orders[indexToShow].productsQ}
-            totalPrice={orders[indexToShow].totalPrice}
-            orderId={orders[indexToShow].orderId}
+            date={orderToShow.date.substr(0, 10)}
+            time={orderToShow.date.substr(11, 5)}
+            totalProducts={orderToShow.order_product.length}
+            totalPrice={totalPrice}
+            orderId={orderToShow.id}
             from={"my-account"}
           />
         )}
@@ -57,7 +62,7 @@ function MyOrder() {
           <h2 className="px-4">Order id: #{id}</h2>
         </div>
         <div className="scroll-format overflow-y-scroll p-4 h-80 my-6">
-          {orderToShow?.products.map((item, index) => {
+          {orderToShow?.order_product.map((item, index) => {
             return <OrderCard key={index} product={item} from={"MyOrder"} />;
           })}
         </div>

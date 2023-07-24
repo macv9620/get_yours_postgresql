@@ -79,7 +79,6 @@ const CheckoutSideMenu = () => {
       })
     })
 
-    //setOrders([...orders, orderSummaryInfo])
     setCartItems([])
     openSideCheckoutMenu()
   }

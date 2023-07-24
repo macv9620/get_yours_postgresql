@@ -83,21 +83,29 @@ const SideMyAccount = () => {
                   message={"No orders created yet ¡make your first!"}
                 />
               )}
-              {orders?.map((order, index) => (
+              {orders?.map((order, index) => {
+
+                const totalPrice = order.order_product.reduce((acc, product)=> {
+                  acc+=product.product_q*product.product.price
+                  return acc
+                }, 0)
+                
+                return (
                 <Link
-                 to={`/my-orders/${order.orderId}`} 
+                 to={`/my-orders/${order.id}`} 
                  key={index}
                  onClick={closeModalAccount}
                  >
                   <OrderList
-                    date={order.date.orderDate}
-                    time={order.date.orderTime}
-                    totalProducts={order.productsQ}
-                    totalPrice={order.totalPrice}
-                    orderId={order.orderId}
+                    date={order.date.substr(0, 10)}
+                    time={order.date.substr(11, 5)}
+                    totalProducts={order.order_product.length}
+                    totalPrice={totalPrice}
+                    orderId={order.id}
                   />
                 </Link>
-              ))}
+                )
+              })}
               </div>
 
             </div>
