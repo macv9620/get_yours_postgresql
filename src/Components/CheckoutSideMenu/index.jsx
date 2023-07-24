@@ -111,7 +111,7 @@ const CheckoutSideMenu = () => {
             return (
               <OrderCard
                 key={index}
-                product={item}
+                productCheckout={item}
               />
             );
           })}

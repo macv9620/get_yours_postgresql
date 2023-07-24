@@ -22,7 +22,7 @@ function MyOrder() {
 
   console.log(orderToShow)
 
-  const totalPrice = orderToShow.order_product.reduce((acc, product)=> {
+  const totalPrice = orderToShow?.order_product.reduce((acc, product)=> {
     acc+=product.product_q*product.product.price
     return acc
   }, 0)
@@ -63,7 +63,7 @@ function MyOrder() {
         </div>
         <div className="scroll-format overflow-y-scroll p-4 h-80 my-6">
           {orderToShow?.order_product.map((item, index) => {
-            return <OrderCard key={index} product={item} from={"MyOrder"} />;
+            return <OrderCard key={index} productSide={item} from={"MyOrder"} />;
           })}
         </div>
 
@@ -71,7 +71,7 @@ function MyOrder() {
           <p className="flex justify-between items-center mb-2">
             <span className="font-light">Total: </span>
             <span className="font-medium text-2xl">
-              ${orderToShow?.totalPrice}
+              ${totalPrice}
             </span>
           </p>
         </div>
