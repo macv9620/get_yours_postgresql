@@ -11,6 +11,7 @@ import { ContextAppProvider } from "../../Context/ContextAppProvider";
 import { CheckoutSideMenu } from "../../Components/CheckoutSideMenu";
 import { ProductForm } from "../AdminProducts";
 import { AuthNoLoggedinRedirect, AuthLoggedinRedirect, ContextAuthProvider } from "../../Context/ContextAuthProvider";
+import { Sales } from "../Sales/Sales";
 
 
 const AppRoutes = () => {
@@ -49,7 +50,16 @@ const AppRoutes = () => {
         <ProductForm />
       </AuthNoLoggedinRedirect>) 
     },
+
+    { path: "sales", 
+    element: (
+      <AuthNoLoggedinRedirect>
+        <Sales />
+      </AuthNoLoggedinRedirect>) 
+    },
+    
     { path: "/*", element: <NotFound /> },
+    
   ]);
 
   return routes;

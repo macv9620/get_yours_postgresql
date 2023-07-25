@@ -151,6 +151,19 @@ const NavBar = () => {
             </NavLink>
           </li>)}
 
+          {(token && userIsAdmin())&& (<li className="hide-on-desktop highlight">
+            <NavLink
+              to="/sales"
+              className={({ isActive }) => (isActive ? 'is-active--products' : undefined)}
+              onClick={()=> console.log('Ir a ventas')}
+            >
+              <div className="flex items-center">
+                <Lock />
+              Sales
+              </div>
+            </NavLink>
+          </li>)}
+
           {token && (<li
             onClick={() => {
               setShowLogoutModal(true)
@@ -206,6 +219,19 @@ const NavBar = () => {
               <div className="flex items-center">
                 <Lock />
               Products
+              </div>
+            </NavLink>
+          </li>)}
+
+          {(token && userIsAdmin())&& (<li className="hide-on-mobile-rigth">
+            <NavLink
+              to="/sales"
+              className={({ isActive }) => (isActive ? 'is-active--products' : undefined)}
+              onClick={closeModal}
+            >
+              <div className="flex items-center">
+                <Lock />
+              Sales
               </div>
             </NavLink>
           </li>)}

@@ -1,0 +1,40 @@
+.tg {
+  border-collapse: collapse;
+  border-color: #ccc;
+  border-spacing: 0;
+}
+.tg td {
+  background-color: #fff;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px;
+  color: #333;
+
+  font-size: 14px;
+  overflow: hidden;
+  padding: 2px 5px;
+  word-break: normal;
+}
+.tg th {
+  background-color: black;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.tg .tg-baqh {
+  text-align: center;
+  vertical-align: center;
+}
+.tg .tg-amwm {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: center;
+}
+
