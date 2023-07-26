@@ -19,7 +19,7 @@ function Sales() {
         });
     }, []);
     
-    let totalOrder = 0
+
   return (
     <Layout>
       <div className="text-3xl font-bold my-4">Sales Report</div>
@@ -43,6 +43,10 @@ function Sales() {
                 return(
               <>
                 {user.order_order_userTouser?.map((order) => {
+                 const totalOrder = order?.order_product.reduce((acc, product)=>{
+                    acc+=product.product.price*product.product_q
+                    return acc
+                  }, 0)
                   return (
                     <>
                       <tr>
@@ -63,11 +67,10 @@ function Sales() {
                         <td className="tg-baqh">{order.order_product[0].product_q}</td>
                         <td className="tg-baqh">${order.order_product[0].product.price*order.order_product[0].product_q}</td>
                         <td className="tg-baqh font-bold" rowSpan={order.order_product.length}>
-                          {totalOrder}
+                          ${totalOrder}
                         </td>
                       </tr>
                       {order?.order_product.map((product, index)=>{
-                        totalOrder = totalOrder + 1
                         if(index === 0){
                             return null
                         }
