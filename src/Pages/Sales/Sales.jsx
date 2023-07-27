@@ -42,14 +42,14 @@ function Sales() {
             {allOrders?.map((user) => {
                 return(
               <>
-                {user.order_order_userTouser?.map((order) => {
+                {user.order_order_userTouser?.map((order, index1) => {
                  const totalOrder = order?.order_product.reduce((acc, product)=>{
                     acc+=product.product.price*product.product_q
                     return acc
                   }, 0)
                   return (
                     <>
-                      <tr>
+                      <tr className={index1 % 2 === 0? "border": "border background-grey"}>
                         <td className="tg-amwm" rowSpan={order.order_product.length}>
                          #{order.id}
                         </td>
@@ -74,7 +74,7 @@ function Sales() {
                         if(index === 0){
                             return null
                         }
-                      return(<tr key={index}>
+                      return(<tr key={index} className={index1 % 2 === 0? "": "background-grey"}>
                         <td className="tg-baqh">{product.product.name}</td>
                         <td className="tg-baqh">${product.product.price}</td>
                         <td className="tg-baqh">{product.product_q}</td>

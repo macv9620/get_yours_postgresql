@@ -42,3 +42,11 @@
   border-bottom: 4px solid black;
 }
 
+.border {
+  border-top: 2px solid black;
+}
+
+.background-grey {
+  background-color: rgb(234, 228, 228);
+}
+
